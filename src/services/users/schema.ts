@@ -1,12 +1,26 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { ObjectId } from "bson";
 const { Schema, model } = mongoose;
 
-import  User  from "../../types/index";
 
 
+interface User {
+  email: {unique: true, type: String}
+  password: string,
+  role: string,
+  accessToken: string
+}
 
-const userSchema = new Schema<User>(
+interface UserModel extends mongoose.Model<User> {
+  checkIfExists: (email: string) => Promise<boolean>;
+  checkCredentials: (email: string, plainpassword: string) => Promise<User>;
+  toJSON(): User;
+  
+}
+
+
+const userSchema = new Schema<User , UserModel>(
   {
     email: {
       type: String,
@@ -32,7 +46,13 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.toJSON = function () {
+interface Thing {
+  prop: string | ObjectId | number;
+}
+
+
+
+userSchema.methods.toJSON = function f(x: Thing){
   const user = this;
   const userObject = user.toObject();
   delete userObject.password;
@@ -54,7 +74,7 @@ userSchema.statics.checkIfExists = async function (email) {
     return false;
   }
 };
-userSchema.statics.checkCredentials = async function (email, plainpassword) {
+userSchema.statics.checkCredentials = async function(email, plainpassword) {
   const user = await this.findOne({ email });
 
   if (user) {
@@ -75,4 +95,4 @@ userSchema.statics.checkCredentials = async function (email, plainpassword) {
 //     }
 // }
 
-export default model<User>("user", userSchema);
+export default model<User, UserModel>("user", userSchema);
