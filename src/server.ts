@@ -1,9 +1,10 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import listEndpoints from "express-list-endpoints";
-import userRouter from "./services/users/index.js";
+import userRouter from "./services/users/index";
 
 
 import {
@@ -14,7 +15,10 @@ import {
   forbiddenHandler,
   catchAllHandler,
 } from "./errorHandlers/errorHandlers.js";
-import accomodationRouter from "./services/accomodation/index.js";
+import accomodationRouter from "./services/accomodation/index";
+
+
+process.env.TS_NODE_DEV && require("dotenv").config();
 
 const server = express();
 
@@ -45,7 +49,7 @@ server.use(genericErrorHandler);
 server.listen(PORT, () => {
   // connect to mongoose Server
 
-  mongoose.connect(process.env.MONGODB, {});
+  mongoose.connect(process.env.MONGODB!, {});
 
   console.log(`Server is listening on port ${PORT}`);
   console.table(listEndpoints(server))

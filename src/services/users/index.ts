@@ -12,6 +12,7 @@ import { JWTAuthMiddleware } from "../../auth/token.js";
 import { hostOnlyMiddleware } from "../../auth/host.js";
 import { calculateObjectSize } from "bson";
 const userRouter = express.Router();
+import User from "../../types/index"
 
 userRouter.post("/", hostOnlyMiddleware, async (req, res, next) => {
   try {

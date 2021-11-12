@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 const { Schema, model } = mongoose;
 
-const userSchema = new Schema(
+import  User  from "../../types/index";
+
+
+
+const userSchema = new Schema<User>(
   {
     email: {
       type: String,
@@ -71,4 +75,4 @@ userSchema.statics.checkCredentials = async function (email, plainpassword) {
 //     }
 // }
 
-export default model("user", userSchema);
+export default model<User>("user", userSchema);
