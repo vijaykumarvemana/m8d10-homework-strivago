@@ -2,7 +2,11 @@ interface User{
     email: {unique: true, type: String},
     password: string,
     role: string,
-    accessToken: string
+    accessToken: string,
+    checkCredentials : (
+        username: string,
+        password: string
+      ) => Promise< User | null>;
   }
 
 

@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.basicAuthMiddleware = void 0;
 var http_errors_1 = __importDefault(require("http-errors"));
 var atob_1 = __importDefault(require("atob"));
-var schema_js_1 = __importDefault(require("../users/schema.js"));
+var schema_1 = __importDefault(require("../services/users/schema"));
 var basicAuthMiddleware = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var decodedCredentials, _a, email, password, user;
     return __generator(this, function (_b) {
@@ -57,7 +57,7 @@ var basicAuthMiddleware = function (req, res, next) { return __awaiter(void 0, v
                 _a = decodedCredentials.split(":"), email = _a[0], password = _a[1];
                 console.log("EMAIL ", email);
                 console.log("PASSWORD ", password);
-                return [4 /*yield*/, schema_js_1.default.checkCredentials(email, password)];
+                return [4 /*yield*/, schema_1.default.checkCredentials(email, password)];
             case 2:
                 user = _b.sent();
                 if (user) {

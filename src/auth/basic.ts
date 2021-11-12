@@ -1,6 +1,6 @@
 import createHttpError from "http-errors";
 import atob from "atob"
-import UserModel from "../users/schema.js"
+import UserModel from "../services/users/schema"
 
 export const basicAuthMiddleware = async (req, res, next) => {
 

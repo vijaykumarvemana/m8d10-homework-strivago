@@ -13,4 +13,4 @@ const AccomodationSchema = new mongoose.Schema<accomodation>(
   { timestamps: true }
 );
 
-export default model("Accomodation", AccomodationSchema);
+export default model<accomodation>("Accomodation", AccomodationSchema);

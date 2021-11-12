@@ -41,7 +41,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isAccomodationOwner = void 0;
 var mongoose_1 = __importDefault(require("mongoose"));
-var schema_js_1 = __importDefault(require("../services/accomodation/schema.js"));
+var schema_1 = __importDefault(require("../services/accomodation/schema"));
 var Types = mongoose_1.default.Types;
 var isAccomodationOwner = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var accomodation, isOwner, err_1;
@@ -49,7 +49,7 @@ var isAccomodationOwner = function (req, res, next) { return __awaiter(void 0, v
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, schema_js_1.default.findById(req.params.id)];
+                return [4 /*yield*/, schema_1.default.findById(req.params.id)];
             case 1:
                 accomodation = _a.sent();
                 if (accomodation) {

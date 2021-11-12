@@ -1,9 +1,10 @@
 import express from "express";
 import AccomodationModel from "./schema.js";
-import { hostOnlyMiddleware } from "../../auth/host.js";
-import { JWTAuthMiddleware } from "../../auth/token.js";
-import { isAccomodationOwner } from "../../auth/owner.js";
+import { hostOnlyMiddleware } from "../../auth/host";
+import { JWTAuthMiddleware } from "../../auth/token";
+import { isAccomodationOwner } from "../../auth/owner";
 import createHttpError from "http-errors";
+import { accomodation } from "../../types/index.js";
 const accomodationRouter = express.Router();
 
 accomodationRouter.get("/", JWTAuthMiddleware, async (req, res, next) => {
@@ -28,7 +29,7 @@ accomodationRouter.get("/:id", JWTAuthMiddleware, async (req, res, next) => {
       select: "email",
     });
     if (accomodation) {
-      res.send(post);
+      res.send(accomodation);
     } else {
       res.status(404).send();
     }
@@ -45,7 +46,7 @@ accomodationRouter.post(
   hostOnlyMiddleware,
   async (req, res, next) => {
     try {
-      req.body.host = req.user;
+     
 
       const newAccomodation = new AccomodationModel(req.body);
       await newAccomodation.save();

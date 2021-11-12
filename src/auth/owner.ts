@@ -1,10 +1,10 @@
 import createHttpError from "http-errors";
 import mongoose from "mongoose";
-import AccomodationModel from "../services/accomodation/schema.js";
+import AccomodationModel from "../services/accomodation/schema";
 
 const { Types } = mongoose;
 
-export const isAccomodationOwner = async (req, res, next) => {
+export const isAccomodationOwner = async (req: { params: { id: any; }; user: { _id: any; }; }, res: { status: (arg0: number, arg1: string | undefined) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }, next: (arg0: unknown) => void) => {
   try {
     // console.log(Types.ObjectId(req.params.id));
     const accomodation = await AccomodationModel.findById(req.params.id);
