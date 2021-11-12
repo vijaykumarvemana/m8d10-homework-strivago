@@ -77,7 +77,7 @@ userSchema.pre("save", function (next) {
         });
     });
 });
-userSchema.methods.toJSON = function () {
+userSchema.methods.toJSON = function f(x) {
     var user = this;
     var userObject = user.toObject();
     delete userObject.password;

@@ -41,11 +41,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var schema_js_1 = __importDefault(require("./schema.js"));
-var host_js_1 = require("../../auth/host.js");
-var token_js_1 = require("../../auth/token.js");
-var owner_js_1 = require("../../auth/owner.js");
+var host_1 = require("../../auth/host");
+var token_1 = require("../../auth/token");
+var owner_1 = require("../../auth/owner");
 var accomodationRouter = express_1.default.Router();
-accomodationRouter.get("/", token_js_1.JWTAuthMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+accomodationRouter.get("/", token_1.JWTAuthMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var accomodations, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -67,7 +67,7 @@ accomodationRouter.get("/", token_js_1.JWTAuthMiddleware, function (req, res, ne
         }
     });
 }); });
-accomodationRouter.get("/:id", token_js_1.JWTAuthMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+accomodationRouter.get("/:id", token_1.JWTAuthMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var accomodation, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -80,7 +80,7 @@ accomodationRouter.get("/:id", token_js_1.JWTAuthMiddleware, function (req, res,
             case 1:
                 accomodation = _a.sent();
                 if (accomodation) {
-                    res.send(post);
+                    res.send(accomodation);
                 }
                 else {
                     res.status(404).send();
@@ -95,13 +95,12 @@ accomodationRouter.get("/:id", token_js_1.JWTAuthMiddleware, function (req, res,
     });
 }); });
 // HOST ONLY
-accomodationRouter.post("/", token_js_1.JWTAuthMiddleware, host_js_1.hostOnlyMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+accomodationRouter.post("/", token_1.JWTAuthMiddleware, host_1.hostOnlyMiddleware, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var newAccomodation, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                req.body.host = req.user;
                 newAccomodation = new schema_js_1.default(req.body);
                 return [4 /*yield*/, newAccomodation.save()];
             case 1:
@@ -116,7 +115,7 @@ accomodationRouter.post("/", token_js_1.JWTAuthMiddleware, host_js_1.hostOnlyMid
         }
     });
 }); });
-accomodationRouter.put("/:id", token_js_1.JWTAuthMiddleware, host_js_1.hostOnlyMiddleware, owner_js_1.isAccomodationOwner, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+accomodationRouter.put("/:id", token_1.JWTAuthMiddleware, host_1.hostOnlyMiddleware, owner_1.isAccomodationOwner, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -137,7 +136,7 @@ accomodationRouter.put("/:id", token_js_1.JWTAuthMiddleware, host_js_1.hostOnlyM
         }
     });
 }); });
-accomodationRouter.delete("/:id", token_js_1.JWTAuthMiddleware, host_js_1.hostOnlyMiddleware, owner_js_1.isAccomodationOwner, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+accomodationRouter.delete("/:id", token_1.JWTAuthMiddleware, host_1.hostOnlyMiddleware, owner_1.isAccomodationOwner, function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
